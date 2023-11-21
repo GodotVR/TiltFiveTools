@@ -71,7 +71,7 @@ enum MovementState {
 @export var movement_jump : float = 5.0
 
 ## Flag indicating whether the player has control in the air
-@export var movement_air_control : bool = false
+@export var movement_air_control : bool = true
 
 # The player
 var _player : T5ToolsPlayer
