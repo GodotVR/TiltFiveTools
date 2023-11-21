@@ -27,6 +27,19 @@ signal button_pressed(name : String)
 signal button_released(name : String)
 
 
+## Orientation of the controller
+enum ControlOrientation {
+	VERTICAL,		## Vertical - wand pointing forwards
+	HORIZONTAL		## Horizontal - wand pointnig to the left
+}
+
+## Control reference frame
+enum ControlReference {
+	PLAYER,			## Control input relative to player
+	WORLD			## Control input relative to world
+}
+
+
 # Character Centering group
 @export_group("Centering", "center_")
 
@@ -39,6 +52,12 @@ signal button_released(name : String)
 
 # Controls group
 @export_group("Controls", "control_")
+
+## Orientation of the controller
+@export var control_orientation : ControlOrientation = ControlOrientation.VERTICAL
+
+## Control reference frame
+@export var control_reference : ControlReference = ControlReference.PLAYER
 
 ## Primary button
 @export var control_primary : String = "trigger_click"
@@ -65,6 +84,9 @@ var _player : T5ToolsPlayer
 # The camera origin
 var _origin : T5Origin3D
 
+# The camera
+var _camera : T5Camera3D
+
 # Control vector
 var _control : Vector2
 
@@ -77,6 +99,7 @@ func _ready() -> void:
 	# Get the player from the character
 	_player = T5ToolsCharacter.find_instance(self).player
 	_origin = _player.get_player_origin()
+	_camera = _player.get_player_camera()
 
 	# Subscribe to player wand events
 	var controller := _player.get_player_wand(0)
@@ -104,7 +127,7 @@ func _physics_process(_delta : float) -> void:
 	# Apply movement
 	if on_ground or movement_air_control:
 		apply_central_force(
-			Vector3(_control.x, 0.0, -_control.y) * movement_force)
+			_control_to_global(_control) * movement_force)
 
 
 # Handle button presses
@@ -168,3 +191,29 @@ func _is_on_ground() -> bool:
 
 	# No valid collisions
 	return false
+
+
+# Convert control input to global vector
+func _control_to_global(control : Vector2) -> Vector3:
+	# Get the oriented vector
+	var vec : Vector3
+	match control_orientation:
+		ControlOrientation.VERTICAL:
+			vec = Vector3(_control.x, 0.0, -_control.y)
+		ControlOrientation.HORIZONTAL:
+			vec = Vector3(-_control.y, 0.0, -_control.x)
+
+	# Translate to reference frame
+	if control_reference == ControlReference.PLAYER:
+		# Get the frame Z vector (to-player, horizontal, normalized)
+		var frame_z := (_camera.global_position - global_position).slide(Vector3.UP).normalized()
+		var frame := Basis(
+			Vector3.UP.cross(frame_z),
+			Vector3.UP,
+			frame_z)
+
+		# Apply the reference frame
+		vec = frame * vec
+
+	# Return the vector
+	return vec
