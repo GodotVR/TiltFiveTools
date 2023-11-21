@@ -1,0 +1,59 @@
+# Workflow to automatically create deliverables
+name: Build on push
+
+on:
+  [push, pull_request]
+
+jobs:
+  build:
+    name: Assembling artifacts
+    runs-on: ubuntu-20.04
+
+    # Note, to satisfy the asset library we need to make sure our zip files have a root folder
+    # this is why we checkout into demo/tilt-five-tools
+    # and build plugin/tilt-five-tools
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: demo/tilt-five-tools
+      - name: Create Tilt Five Tools plugin
+        run: |
+          mkdir plugin
+          mkdir plugin/tilt-five-tools
+          mkdir plugin/tilt-five-tools/addons
+          cp -r demo/tilt-five-tools/addons/tiltfive_tools plugin/tilt-five-tools/addons
+          cp demo/tilt-five-tools/LICENSE plugin/tilt-five-tools/addons/tiltfive_tools
+          cp demo/tilt-five-tools/CONTRIBUTORS.md plugin/tilt-five-tools/addons/tiltfive_tools
+          cp demo/tilt-five-tools/VERSIONS.md plugin/tilt-five-tools/addons/tiltfive_tools
+          rm -rf demo/tilt-five-tools/.git
+          rm -rf demo/tilt-five-tools/.github
+      - name: Create Tilt Five Tools library artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tilt-five-tools
+          path: |
+            plugin
+      - name: Create Tilt Five Tools demo artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tilt-five-tools-demo
+          path: |
+            demo
+      - name: Zip asset
+        run: |
+          cd plugin
+          zip -qq -r ../tilt-five-tools.zip tilt-five-tools
+          cd ../demo
+          zip -qq -r ../tilt-five-tools-demo.zip tilt-five-tools
+          cd ..
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      - name: Create and upload asset
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "tilt-five-tools.zip,tilt-five-tools-demo.zip"
+          omitNameDuringUpdate: true
+          omitBodyDuringUpdate: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
