@@ -31,6 +31,18 @@ signal button_released(name : String)
 signal movement_changed(state : MovementState)
 
 
+## Orientation of the controller
+enum ControlOrientation {
+	VERTICAL,		## Vertical - wand pointing forwards
+	HORIZONTAL		## Horizontal - wand pointnig to the left
+}
+
+## Control reference frame
+enum ControlReference {
+	PLAYER,			## Control input relative to player
+	WORLD			## Control input relative to world
+}
+
 ## Movement State
 enum MovementState {
 	IDLE,		## Character is idle
@@ -54,6 +66,12 @@ enum MovementState {
 
 # Controls group
 @export_group("Controls", "control_")
+
+## Orientation of the controller
+@export var control_orientation : ControlOrientation = ControlOrientation.VERTICAL
+
+## Control reference frame
+@export var control_reference : ControlReference = ControlReference.PLAYER
 
 ## Primary button
 @export var control_primary : String = "trigger_click"
@@ -79,6 +97,9 @@ var _player : T5ToolsPlayer
 # The camera origin
 var _origin : T5Origin3D
 
+# The camera
+var _camera : T5Camera3D
+
 # Movement state
 var _state : MovementState = MovementState.IDLE
 
@@ -94,6 +115,7 @@ func _ready():
 	# Get the player from the character
 	_player = T5ToolsCharacter.find_instance(self).player
 	_origin = _player.get_player_origin()
+	_camera = _player.get_player_camera()
 
 	# Subscribe to player wand events
 	var controller := _player.get_player_wand(0)
@@ -131,7 +153,7 @@ func _physics_process(delta : float) -> void:
 		_set_state(MovementState.FALLING)
 
 	# Get the input direction and handle the movement/deceleration.
-	var control_vel := Vector3(_control.x, 0, -_control.y) * movement_speed
+	var control_vel := _control_to_global(_control) * movement_speed
 	var direction := control_vel.normalized()
 
 	# Face in the desired direction
@@ -207,3 +229,29 @@ func _on_input_vector2_changed(p_name : String, p_value : Vector2) -> void:
 	# Handle known joysticks
 	if p_name == "stick":
 		_control = p_value
+
+
+# Convert control input to global vector
+func _control_to_global(control : Vector2) -> Vector3:
+	# Get the oriented vector
+	var vec : Vector3
+	match control_orientation:
+		ControlOrientation.VERTICAL:
+			vec = Vector3(_control.x, 0.0, -_control.y)
+		ControlOrientation.HORIZONTAL:
+			vec = Vector3(-_control.y, 0.0, -_control.x)
+
+	# Translate to reference frame
+	if control_reference == ControlReference.PLAYER:
+		# Get the frame Z vector (to-player, horizontal, normalized)
+		var frame_z := (_camera.global_position - global_position).slide(Vector3.UP).normalized()
+		var frame := Basis(
+			Vector3.UP.cross(frame_z),
+			Vector3.UP,
+			frame_z)
+
+		# Apply the reference frame
+		vec = frame * vec
+
+	# Return the vector
+	return vec

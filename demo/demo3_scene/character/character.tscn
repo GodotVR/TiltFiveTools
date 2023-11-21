@@ -13,7 +13,6 @@ height = 1.5
 collision_layer = 524288
 collision_mask = 524291
 script = ExtResource("2_28gu4")
-movement_air_control = true
 
 [node name="gobot" parent="CharacterBody3D" index="0" instance=ExtResource("2_fy2fw")]
 
