@@ -1,0 +1,106 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkjxuanprob03"]
+
+[ext_resource type="Script" path="res://demo/main_menu/main_menu_2d.gd" id="1_x3j2v"]
+[ext_resource type="Texture2D" uid="uid://crovglpkjvq4f" path="res://demo/materials/border.png" id="2_6hykq"]
+
+[node name="MainMenu2D" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_x3j2v")
+
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6hykq")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Margin/VBoxContainer"]
+layout_mode = 2
+text = "Game Title"
+horizontal_alignment = 1
+
+[node name="Spacing1" type="Control" parent="Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Demo12" type="HBoxContainer" parent="Margin/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Demo1" type="Button" parent="Margin/VBoxContainer/Demo12"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Demo 1
+"
+
+[node name="Demo2" type="Button" parent="Margin/VBoxContainer/Demo12"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Demo 2
+"
+
+[node name="Demo34" type="HBoxContainer" parent="Margin/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Demo3" type="Button" parent="Margin/VBoxContainer/Demo34"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Demo 3
+"
+
+[node name="Demo4" type="Button" parent="Margin/VBoxContainer/Demo34"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+disabled = true
+text = "Demo 4
+"
+
+[node name="Spacing2" type="Control" parent="Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="Margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="Quit" type="HBoxContainer" parent="Margin/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Quit" type="Button" parent="Margin/VBoxContainer/Quit"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="pressed" from="Margin/VBoxContainer/Demo12/Demo1" to="." method="_on_demo_pressed" binds= [1]]
+[connection signal="pressed" from="Margin/VBoxContainer/Demo12/Demo2" to="." method="_on_demo_pressed" binds= [2]]
+[connection signal="pressed" from="Margin/VBoxContainer/Demo34/Demo3" to="." method="_on_demo_pressed" binds= [3]]
+[connection signal="pressed" from="Margin/VBoxContainer/Demo34/Demo4" to="." method="_on_demo_pressed" binds= [4]]
+[connection signal="pressed" from="Margin/VBoxContainer/Quit/Quit" to="." method="_on_quit_pressed"]

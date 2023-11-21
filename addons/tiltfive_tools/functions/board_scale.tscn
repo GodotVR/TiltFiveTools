@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://go1j5dbhtx3l"]
+
+[ext_resource type="Script" path="res://addons/tiltfive_tools/functions/board_scale.gd" id="1_1mxth"]
+
+[node name="BoardScale" type="Node"]
+script = ExtResource("1_1mxth")

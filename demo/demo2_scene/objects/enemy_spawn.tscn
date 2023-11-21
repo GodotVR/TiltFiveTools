@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbyewo00ooni6"]
+
+[ext_resource type="Script" path="res://demo/demo2_scene/objects/enemy_spawn.gd" id="1_03aq4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gn5tm"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pxspy"]
+material = SubResource("StandardMaterial3D_gn5tm")
+size = Vector3(1, 0.5, 0.5)
+
+[node name="EnemySpawn" type="Node3D"]
+script = ExtResource("1_03aq4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("BoxMesh_pxspy")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

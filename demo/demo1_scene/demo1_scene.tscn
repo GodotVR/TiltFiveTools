@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhx4emplyskyr"]
+
+[ext_resource type="PackedScene" uid="uid://dslrsg4cn04o4" path="res://addons/tiltfive_tools/staging/scene.tscn" id="1_sgtvp"]
+[ext_resource type="PackedScene" uid="uid://cm6fdya8glspr" path="res://demo/demo1_scene/character.tscn" id="2_k4t3w"]
+[ext_resource type="PackedScene" uid="uid://7tcfuro5b3kx" path="res://addons/tiltfive_tools/objects/scene_switch_area.tscn" id="3_d6shk"]
+[ext_resource type="PackedScene" uid="uid://b427u10bfm22u" path="res://demo/demo1_scene/objects/room.tscn" id="3_ys4mn"]
+[ext_resource type="PackedScene" uid="uid://7i1gebioyibk" path="res://demo/demo1_scene/objects/hall_t.tscn" id="4_r5ciq"]
+[ext_resource type="PackedScene" uid="uid://b1l6rigaxg121" path="res://demo/demo1_scene/objects/hall_l.tscn" id="5_mo0dk"]
+[ext_resource type="PackedScene" uid="uid://dkh6kon2qwu4t" path="res://demo/demo1_scene/objects/ramp.tscn" id="6_w4hmr"]
+[ext_resource type="PackedScene" uid="uid://bcy3f76x7otpv" path="res://demo/demo1_scene/objects/hall.tscn" id="7_urkc3"]
+[ext_resource type="PackedScene" uid="uid://ccjojktik2du0" path="res://demo/demo1_scene/objects/barrier.tscn" id="9_xml00"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kjahq"]
+size = Vector3(6, 2, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_inaen"]
+size = Vector3(100, 10, 100)
+
+[sub_resource type="Environment" id="Environment_3o5lk"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="Demo1Scene" instance=ExtResource("1_sgtvp")]
+character_scene = ExtResource("2_k4t3w")
+
+[node name="Map" type="Node3D" parent="." index="0"]
+
+[node name="Room" parent="Map" index="0" instance=ExtResource("3_ys4mn")]
+
+[node name="HallT" parent="Map" index="1" instance=ExtResource("4_r5ciq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="HallL" parent="Map" index="2" instance=ExtResource("5_mo0dk")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -12)
+
+[node name="Ramp1" parent="Map" index="3" instance=ExtResource("6_w4hmr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -9)
+
+[node name="Ramp2" parent="Map" index="4" instance=ExtResource("6_w4hmr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+
+[node name="RoomEnd" parent="Map" index="5" instance=ExtResource("3_ys4mn")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -10, 2, -12)
+
+[node name="Hall" parent="Map" index="6" instance=ExtResource("7_urkc3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, -2, -6)
+
+[node name="Hall2" parent="Map" index="7" instance=ExtResource("7_urkc3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16, -2, -6)
+
+[node name="Hall3" parent="Map" index="8" instance=ExtResource("7_urkc3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 22, -2, -6)
+
+[node name="Barrier" parent="Map" index="9" instance=ExtResource("9_xml00")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, -4)
+
+[node name="Barrier6" parent="Map" index="10" instance=ExtResource("9_xml00")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.028, 0, -3.191)
+
+[node name="Barrier4" parent="Map" index="11" instance=ExtResource("9_xml00")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, -10)
+
+[node name="Barrier5" parent="Map" index="12" instance=ExtResource("9_xml00")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -9)
+
+[node name="Barrier2" parent="Map" index="13" instance=ExtResource("9_xml00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -2, -7)
+
+[node name="Barrier3" parent="Map" index="14" instance=ExtResource("9_xml00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -2, -5)
+
+[node name="EndArea" parent="." index="1" instance=ExtResource("3_d6shk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -1, -6)
+target_scene = "res://demo/main_menu/main_menu.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EndArea" index="0"]
+shape = SubResource("BoxShape3D_kjahq")
+
+[node name="FallArea" parent="." index="2" instance=ExtResource("3_d6shk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -1, -6)
+target_scene = "res://demo/main_menu/main_menu.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -12, 0)
+shape = SubResource("BoxShape3D_inaen")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
+environment = SubResource("Environment_3o5lk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="4"]
+transform = Transform3D(0.866025, -0.482963, 0.12941, 0, 0.258819, 0.965926, -0.5, -0.836516, 0.224144, 0, 4, 0)
+shadow_enabled = true

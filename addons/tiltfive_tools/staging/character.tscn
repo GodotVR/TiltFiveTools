@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://co3lxjgp5ifh2"]
+
+[ext_resource type="Script" path="res://addons/tiltfive_tools/staging/character.gd" id="1_4n2xe"]
+
+[node name="Character" type="Node3D"]
+script = ExtResource("1_4n2xe")

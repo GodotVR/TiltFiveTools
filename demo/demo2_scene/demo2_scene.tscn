@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://iindr3g5kxxs"]
+
+[ext_resource type="PackedScene" uid="uid://dslrsg4cn04o4" path="res://addons/tiltfive_tools/staging/scene.tscn" id="1_tr04p"]
+[ext_resource type="PackedScene" uid="uid://bs8yge8ufwxlg" path="res://demo/demo2_scene/objects/ground.tscn" id="2_u3mur"]
+[ext_resource type="PackedScene" uid="uid://bbyewo00ooni6" path="res://demo/demo2_scene/objects/enemy_spawn.tscn" id="3_ya7p6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ie4c1"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_h1aye"]
+material = SubResource("StandardMaterial3D_ie4c1")
+
+[sub_resource type="Environment" id="Environment_k1jvl"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="Demo2Scene" instance=ExtResource("1_tr04p")]
+
+[node name="Map" type="Node3D" parent="." index="0"]
+
+[node name="Ground" parent="Map" index="0" instance=ExtResource("2_u3mur")]
+
+[node name="EnemySpawn" parent="Map" index="1" node_paths=PackedStringArray("target") instance=ExtResource("3_ya7p6")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2.4, 0, -1)
+target = NodePath("../Target")
+
+[node name="EnemySpawn2" parent="Map" index="2" node_paths=PackedStringArray("target") instance=ExtResource("3_ya7p6")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 2.4, 0, -1)
+target = NodePath("../Target")
+
+[node name="EnemySpawn3" parent="Map" index="3" node_paths=PackedStringArray("target") instance=ExtResource("3_ya7p6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
+target = NodePath("../Target")
+
+[node name="Target" type="MeshInstance3D" parent="Map" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.4)
+mesh = SubResource("SphereMesh_h1aye")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_k1jvl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
+transform = Transform3D(0.866025, -0.482963, 0.12941, 0, 0.258819, 0.965926, -0.5, -0.836516, 0.224144, 0, 4, 0)
+shadow_enabled = true

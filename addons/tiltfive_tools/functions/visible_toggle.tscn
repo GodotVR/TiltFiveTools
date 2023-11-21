@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://5xntpxnp3gxe"]
+
+[ext_resource type="Script" path="res://addons/tiltfive_tools/functions/visible_toggle.gd" id="1_ypcu7"]
+
+[node name="VisibleToggle" type="Node"]
+script = ExtResource("1_ypcu7")
+wand = 0

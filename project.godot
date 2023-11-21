@@ -1,0 +1,49 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="TiltFiveTools"
+run/main_scene="res://demo/main.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+T5Interface="*res://addons/tiltfive/T5Interface.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/tiltfive/plugin.cfg")
+
+[layer_names]
+
+3d_render/layer_1="Everyone"
+3d_render/layer_2="Spectator"
+3d_render/layer_3="All Players"
+3d_render/layer_11="Player 1"
+3d_render/layer_12="Player 2"
+3d_render/layer_13="Player 3"
+3d_render/layer_14="Player 4"
+3d_physics/layer_1="Static World"
+3d_physics/layer_2="Dynamic World"
+3d_physics/layer_11="Player 1"
+3d_physics/layer_12="Player 2"
+3d_physics/layer_13="Player 3"
+3d_physics/layer_14="Player 4"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
+[xr]
+
+shaders/enabled=true

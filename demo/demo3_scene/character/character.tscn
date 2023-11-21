@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://crkjxplihmj3i"]
+
+[ext_resource type="PackedScene" uid="uid://co3lxjgp5ifh2" path="res://addons/tiltfive_tools/staging/character.tscn" id="1_ha5qy"]
+[ext_resource type="Script" path="res://demo/demo3_scene/character/character_body.gd" id="2_28gu4"]
+[ext_resource type="PackedScene" uid="uid://dne628fr47uug" path="res://demo/demo3_scene/character/gobot.glb" id="2_fy2fw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4ulb"]
+height = 1.5
+
+[node name="Character" instance=ExtResource("1_ha5qy")]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." index="0"]
+collision_layer = 524288
+collision_mask = 524291
+script = ExtResource("2_28gu4")
+movement_air_control = true
+
+[node name="gobot" parent="CharacterBody3D" index="0" instance=ExtResource("2_fy2fw")]
+
+[node name="Skeleton3D" parent="CharacterBody3D/gobot/Armature" index="0"]
+bones/0/position = Vector3(0.097547, 0.267181, -0.181935)
+bones/0/rotation = Quaternion(0.964598, 1.15278e-08, -4.21639e-08, -0.263726)
+bones/1/position = Vector3(-0.097547, 0.115866, 0.0813449)
+bones/1/rotation = Quaternion(0.452324, -3.89842e-08, -1.97717e-08, 0.891854)
+bones/2/rotation = Quaternion(0.0262198, -4.36964e-08, -1.1461e-09, 0.999656)
+bones/4/rotation = Quaternion(0.277943, -5.64499e-06, 9.47258e-06, 0.960598)
+bones/5/rotation = Quaternion(0.546122, 9.52631e-07, -1.86441e-05, 0.837705)
+bones/6/rotation = Quaternion(-0.223252, -7.33125e-08, 5.69021e-07, 0.974761)
+bones/7/rotation = Quaternion(0.00312552, -1.1371e-06, 1.06962e-07, 0.999995)
+bones/8/rotation = Quaternion(-0.550094, -0.643046, 0.0900143, 0.525153)
+bones/16/rotation = Quaternion(-0.550094, 0.643046, -0.0900143, 0.525153)
+bones/24/rotation = Quaternion(0.263986, 4.21608e-08, -1.15392e-08, 0.964526)
+
+[node name="AnimationPlayer" parent="CharacterBody3D/gobot" index="1"]
+playback_default_blend_time = 0.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_t4ulb")
+
+[editable path="CharacterBody3D/gobot"]

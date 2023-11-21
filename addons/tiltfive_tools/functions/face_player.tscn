@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c21g2ifqcqkij"]
+
+[ext_resource type="Script" path="res://addons/tiltfive_tools/functions/face_player.gd" id="1_wmdxn"]
+
+[node name="FacePlayer" type="Node"]
+script = ExtResource("1_wmdxn")
