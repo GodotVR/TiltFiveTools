@@ -56,7 +56,7 @@ signal button_released(name : String)
 @export var movement_jump : float = 5.0
 
 ## Flag indicating whether the player has control in the air
-@export var movement_air_control : bool = false
+@export var movement_air_control : bool = true
 
 
 # The player
@@ -145,18 +145,26 @@ func _is_on_ground() -> bool:
 	if not test_move(
 		global_transform,
 		Vector3.DOWN * 0.1,
-		collision):
+		collision,
+		0.01,
+		false,
+		3):
 		return false
 
-	# Skip if the contact is too stepp to be called ground
-	if collision.get_angle(0) > deg_to_rad(60):
-		return false
+	# Inspect all collisions
+	for c in collision.get_collision_count():
+		# Skip if the contact is too stepp to be called ground
+		if collision.get_angle(c) > deg_to_rad(60):
+			continue
 
-	# Test if moving up relative to the ground
-	var ground_velocity := collision.get_collider_velocity(0)
-	var relative_velocity := linear_velocity - ground_velocity
-	if relative_velocity.y > 0.1:
-		return false
+		# Test if moving up relative to the ground
+		var ground_velocity := collision.get_collider_velocity(0)
+		var relative_velocity := linear_velocity - ground_velocity
+		if relative_velocity.y > 0.1:
+			continue
 
-	# In contact with ground
-	return true
+		# Found a working collision
+		return true
+
+	# No valid collisions
+	return false
