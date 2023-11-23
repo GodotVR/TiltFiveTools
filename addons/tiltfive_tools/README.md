@@ -7,6 +7,30 @@ Tilt Five experiences and games.
 
 ## General Concepts
 
+### Wand Inputs
+
+The Tilt Five wand is represented in Godot as a T5Controller3D. This node
+emits signals when the inputs are used.
+
+For button presses the `button_pressed(name : String)` and 
+`button_released(name : String)` signals use the following names:
+* "button_a"
+* "button_b"
+* "button_x"
+* "button_y"
+* "button_1"
+* "button_2"
+* "button_3"
+* "button_t5"
+* "trigger_click"
+
+The trigger input is reported as "trigger" in the
+`input_float_changed(name : String, value : float)` signal.
+
+The joystick input is reported as "stick" in the
+`input_vector2_changed(name : String, value : Vector2)` signal.
+
+
 ### Visual Layers
 
 As Tilt Five is designed to work with multiple local players, it is sometimes
