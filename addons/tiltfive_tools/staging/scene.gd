@@ -29,7 +29,7 @@ var characters : Array[T5ToolsCharacter] = []
 
 
 ## Load spawn point
-var _load_spawn : Transform3D
+var _load_spawn : Transform3D = Transform3D.IDENTITY
 
 
 func _ready():
@@ -49,7 +49,6 @@ func _on_scene_loaded(user_data : Variant) -> void:
 		spawn_position = spawn_position.get_spawn_postion(self)
 
 	# Get the spawn transform
-	var _load_spawn := Transform3D.IDENTITY
 	match typeof(spawn_position):
 		TYPE_STRING:
 			# Name of Node3D to spawn at

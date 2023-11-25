@@ -16,7 +16,7 @@ enum Initial {
 
 
 ## Wand number (0 for default)
-@export var wand : int = 2
+@export var wand : int = 0
 
 ## Toggle button (T5 menu button for default)
 @export var toggle_button : String = "button_t5"

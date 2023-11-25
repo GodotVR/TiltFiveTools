@@ -53,6 +53,10 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
+	# Connect player events
+	$T5Manager.glasses_scene_was_added.connect(_on_player_scene_added)
+	$T5Manager.glasses_scene_will_be_removed.connect(_on_player_scene_removed)
+
 	# Start by loading the start scene
 	do_load_scene(start_scene, null)
 
@@ -60,7 +64,7 @@ func _ready() -> void:
 # Load a scene
 func do_load_scene(p_scene_path : String, user_data : Variant) -> void:
 	# Log request
-	print_verbose("StagingBase: Request to load %s" % p_scene_path)
+	print_verbose("T5ToolsStaging: Request to load %s" % p_scene_path)
 
 	# Start background loading of the resource
 	ResourceLoader.load_threaded_request(p_scene_path)
@@ -68,24 +72,24 @@ func do_load_scene(p_scene_path : String, user_data : Variant) -> void:
 	# Start by unloading the current scene
 	if current_scene:
 		# Report about to exit the current scene
-		print_verbose("StagingBase: Reporting scene_pre_exiting")
+		print_verbose("T5ToolsStaging: Reporting scene_pre_exiting")
 		scene_pre_exiting.emit(current_scene, user_data)
 		current_scene.scene_pre_exiting.emit(user_data)
 
 		# Fade to black
-		print_verbose("StagingBase: Fading out")
+		print_verbose("T5ToolsStaging: Fading out")
 		if _fade_tween: _fade_tween.kill()
 		_fade_tween = get_tree().create_tween()
 		_fade_tween.tween_method(_set_fade, 0.0, 1.0, 1.0)
 		await _fade_tween.finished
 
 		# Report the exit of the current scene
-		print_verbose("StagingBase: Reporting scene_exiting")
+		print_verbose("T5ToolsStaging: Reporting scene_exiting")
 		scene_exiting.emit(current_scene, user_data)
 		current_scene.scene_exiting.emit(user_data)
 
 		# Discard the current scene
-		print_verbose("StagingBase: Discarding old scene")
+		print_verbose("T5ToolsStaging: Discarding old scene")
 		$Scene.remove_child(current_scene)
 		current_scene.queue_free()
 		current_scene = null
@@ -96,28 +100,28 @@ func do_load_scene(p_scene_path : String, user_data : Variant) -> void:
 			player.get_player_origin().global_transform = Transform3D.IDENTITY
 
 	# Load the new scene
-	print_verbose("StagingBase: Loading new scene")
+	print_verbose("T5ToolsStaging: Loading new scene")
 	var new_scene : PackedScene = ResourceLoader.load_threaded_get(p_scene_path)
 
 	# Instantiate the scene
-	print_verbose("StagingBase: Instantiating new scene")
+	print_verbose("T5ToolsStaging: Instantiating new scene")
 	current_scene = new_scene.instantiate()
 	$Scene.add_child(current_scene)
 
 	# Report the new scene is loaded
-	print_verbose("StagingBase: Reporting scene_loaded")
+	print_verbose("T5ToolsStaging: Reporting scene_loaded")
 	current_scene.scene_loaded.emit(user_data)
 	scene_loaded.emit(current_scene, user_data)
 
 	# Fade to visible
-	print_verbose("StagingBase: Fading in")
+	print_verbose("T5ToolsStaging: Fading in")
 	if _fade_tween: _fade_tween.kill()
 	_fade_tween = get_tree().create_tween()
 	_fade_tween.tween_method(_set_fade, 1.0, 0.0, 1.0)
 	await _fade_tween.finished
 
 	# Report the new scene is visible
-	print_verbose("StagingBase: Reporting scene_visible")
+	print_verbose("T5ToolsStaging: Reporting scene_visible")
 	current_scene.scene_visible.emit(user_data)
 	scene_visible.emit(current_scene, user_data)
 
@@ -134,15 +138,14 @@ func _set_fade(p_fade : float) -> void:
 
 # Handle player added
 func _on_player_scene_added(player : T5ToolsPlayer):
-	player.player_number = _get_free_player_number()
-	print_verbose("StagingBase: Player %s added" % player)
+	print_verbose("T5ToolsStaging: Player %s added" % player)
 	players.append(player)
 	player_created.emit(player)
 
 
 # Handle player removed
 func _on_player_scene_removed(player : T5ToolsPlayer):
-	print_verbose("StagingBase: Player %s removed" % player)
+	print_verbose("T5ToolsStaging: Player %s removed" % player)
 	players.erase(player)
 	player_removed.emit(player)
 
@@ -150,14 +153,3 @@ func _on_player_scene_removed(player : T5ToolsPlayer):
 ## Load the requested scene
 static func load_scene(p_scene_path : String, user_data : Variant = null) -> void:
 	instance.do_load_scene(p_scene_path, user_data)
-
-
-func _get_free_player_number() -> int:
-	# Check if player numbers 0..3 are available for use
-	for n in 4:
-		if not players.any(func(p : T5ToolsPlayer) -> bool: return p.player_number == n):
-			return n
-
-	# Warn and return an invalid player 4
-	push_warning("Players 0..3 already assigned. No ID for new player")
-	return -1
