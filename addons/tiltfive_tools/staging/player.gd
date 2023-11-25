@@ -14,7 +14,27 @@ extends T5XRRig
 @export_flags_3d_render var visible_layers : int = 5 : set = _set_visible_layers
 
 ## Player number [0..3] (set by Staging on load)
-@export var player_number : int : set = _set_player_number
+@export var player_number : int = -1 : set = _set_player_number
+
+
+## Array of all players (used for player numbering)
+static var _players : Array[T5ToolsPlayer] = []
+
+
+func _enter_tree():
+	# Assign the next free player number
+	for n in 4:
+		if _players.all(func(p : T5ToolsPlayer) -> bool: return p.player_number != n):
+			player_number = n
+			break;
+
+	# Save as a player
+	_players.append(self)
+
+
+func _exit_tree():
+	# Remove from the list of players
+	_players.erase(self)
 
 
 func _ready():

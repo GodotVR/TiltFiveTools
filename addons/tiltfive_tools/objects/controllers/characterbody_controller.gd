@@ -237,9 +237,9 @@ func _control_to_global(control : Vector2) -> Vector3:
 	var vec : Vector3
 	match control_orientation:
 		ControlOrientation.VERTICAL:
-			vec = Vector3(_control.x, 0.0, -_control.y)
+			vec = Vector3(control.x, 0.0, -control.y)
 		ControlOrientation.HORIZONTAL:
-			vec = Vector3(-_control.y, 0.0, -_control.x)
+			vec = Vector3(-control.y, 0.0, -control.x)
 
 	# Translate to reference frame
 	if control_reference == ControlReference.PLAYER:

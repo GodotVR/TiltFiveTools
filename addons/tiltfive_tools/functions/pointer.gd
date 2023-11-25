@@ -51,9 +51,6 @@ const VALID_MASK := 0b0000_0000_0001_0000_0000_0000_0000_0000
 
 @export_group("Arc")
 
-## Arc length when not colliding
-@export_range(0.01, 1.0, 0.01, "or_greater") var not_colliding_distance : float = 0.5
-
 ## Bezier strength
 @export_range(0.1, 1.0, 0.05) var bezier_strength : float = 0.5
 

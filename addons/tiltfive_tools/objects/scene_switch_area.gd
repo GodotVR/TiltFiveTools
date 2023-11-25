@@ -1,5 +1,5 @@
 @tool
-class_name SceneSwitchArea
+class_name T5ToolsSceneSwitchArea
 extends Area3D
 
 
@@ -25,7 +25,7 @@ func _ready() -> void:
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings := PackedStringArray()
 
-	# Verify the controller
+	# Verify the target scene is specified
 	if not target_scene:
 		warnings.append("Target scene must be specified")
 
