@@ -10,17 +10,25 @@ together with the [TiltFiveGodot4](https://github.com/GodotVR/TiltFiveGodot4) pl
 create Tilt Five games.
 
 
-## How to Use
+## Language support
 
-The [Asset README](./addons/tiltfive_tools/README.md) contains:
-- [General Concepts](./addons/tiltfive_tools/README.md#general-concepts)
-- [Tool Components](./addons/tiltfive_tools/README.md#tilt-five-tool-components)
-- [Frequently Asked Questions](./addons/tiltfive_tools/README.md#faq)
+Tilt Five Tools has both gdscript and .NET versions with the same features.
 
 
-## Demo
+## How to Use (GDScript)
 
-This repository contains a basic demo of the Tilt Five Tools features.
+The [Asset README](./project.gd/addons/tiltfive_tools/README.md) contains:
+- [General Concepts](./project.gd/addons/tiltfive_tools/README.md#general-concepts)
+- [Tool Components](./project.gd/addons/tiltfive_tools/README.md#tilt-five-tool-components)
+- [Frequently Asked Questions](./project.gd/addons/tiltfive_tools/README.md#faq)
+
+
+## How to Use (.NET)
+
+The [Asset README](./project.csharp/addons/tiltfive_tools/README.md) contains:
+- [General Concepts](./project.csharp/addons/tiltfive_tools/README.md#general-concepts)
+- [Tool Components](./project.csharp/addons/tiltfive_tools/README.md#tilt-five-tool-components)
+- [Frequently Asked Questions](./project.csharp/addons/tiltfive_tools/README.md#faq)
 
 
 ## Licensing

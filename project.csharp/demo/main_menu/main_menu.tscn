@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://1uyp1upvrhmd"]
+
+[ext_resource type="PackedScene" uid="uid://dslrsg4cn04o4" path="res://addons/tiltfive_tools/staging/scene.tscn" id="1_e4qwb"]
+[ext_resource type="PackedScene" uid="uid://0l6uvyibyfq7" path="res://addons/tiltfive_tools/objects/viewport/viewport_2d_in_3d.tscn" id="2_8u0ar"]
+[ext_resource type="PackedScene" uid="uid://dkjxuanprob03" path="res://demo/main_menu/main_menu_2d.tscn" id="3_s11b2"]
+
+[sub_resource type="Environment" id="Environment_3m4fl"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="MainMenuScene" instance=ExtResource("1_e4qwb")]
+
+[node name="Screen" parent="." index="0" instance=ExtResource("2_8u0ar")]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, -0.4, 0)
+AlphaScissorThreshold = 0.25
+Unshaded = true
+Filter = null
+Scene = ExtResource("3_s11b2")
+UpdateMode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_3m4fl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
+transform = Transform3D(0.866025, -0.482963, 0.12941, 0, 0.258819, 0.965926, -0.5, -0.836516, 0.224144, 0, 4, 0)

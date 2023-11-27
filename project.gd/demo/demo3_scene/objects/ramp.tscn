@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8et2rujvlweg"]
+
+[ext_resource type="Material" uid="uid://bjvnw1lxswc7b" path="res://demo/materials/bricks_material.tres" id="1_obt2g"]
+
+[node name="Ramp" type="CSGPolygon3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 1)
+depth = 2.0
+material = ExtResource("1_obt2g")

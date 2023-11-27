@@ -1,0 +1,173 @@
+[gd_scene load_steps=11 format=3 uid="uid://clbfq3n7oev12"]
+
+[ext_resource type="PackedScene" uid="uid://dslrsg4cn04o4" path="res://addons/tiltfive_tools/staging/scene.tscn" id="1_04l7y"]
+[ext_resource type="Material" uid="uid://nbp8gi62cwuj" path="res://demo/materials/ground_material.tres" id="2_1k6wx"]
+[ext_resource type="PackedScene" uid="uid://crkjxplihmj3i" path="res://demo/demo3_scene/character/character.tscn" id="2_swtpo"]
+[ext_resource type="PackedScene" uid="uid://b4xl5ssedv1ki" path="res://demo/demo3_scene/objects/wall.tscn" id="4_7hgai"]
+[ext_resource type="PackedScene" uid="uid://cvgq86n7q7to3" path="res://demo/demo3_scene/objects/block.tscn" id="5_2diow"]
+[ext_resource type="PackedScene" uid="uid://c8et2rujvlweg" path="res://demo/demo3_scene/objects/ramp.tscn" id="6_ucvdf"]
+[ext_resource type="PackedScene" uid="uid://x64qu8beayva" path="res://demo/demo3_scene/objects/exit_area.tscn" id="7_5o12b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oqjux"]
+size = Vector3(24, 1, 24)
+
+[sub_resource type="QuadMesh" id="QuadMesh_14m0i"]
+material = ExtResource("2_1k6wx")
+size = Vector2(24, 24)
+
+[sub_resource type="Environment" id="Environment_ay2m3"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="Demo3Scene" instance=ExtResource("1_04l7y")]
+CharacterScene = ExtResource("2_swtpo")
+
+[node name="Map" type="Node3D" parent="." index="0"]
+
+[node name="Ground" type="StaticBody3D" parent="Map" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Ground" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_oqjux")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Ground" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_14m0i")
+
+[node name="Perimeter" type="Node3D" parent="Map" index="1"]
+
+[node name="Wall1" parent="Map/Perimeter" index="0" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -12)
+
+[node name="Wall2" parent="Map/Perimeter" index="1" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -12)
+
+[node name="Wall3" parent="Map/Perimeter" index="2" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -12)
+
+[node name="Wall4" parent="Map/Perimeter" index="3" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -12)
+
+[node name="Wall5" parent="Map/Perimeter" index="4" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12, 0, -9)
+
+[node name="Wall6" parent="Map/Perimeter" index="5" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12, 0, -3)
+
+[node name="Wall7" parent="Map/Perimeter" index="6" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12, 0, 3)
+
+[node name="Wall8" parent="Map/Perimeter" index="7" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12, 0, 9)
+
+[node name="Wall9" parent="Map/Perimeter" index="8" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 9, 0, 12)
+
+[node name="Wall10" parent="Map/Perimeter" index="9" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3, 0, 12)
+
+[node name="Wall11" parent="Map/Perimeter" index="10" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3, 0, 12)
+
+[node name="Wall12" parent="Map/Perimeter" index="11" instance=ExtResource("4_7hgai")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -9, 0, 12)
+
+[node name="Wall13" parent="Map/Perimeter" index="12" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -12, 0, 9)
+
+[node name="Wall14" parent="Map/Perimeter" index="13" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -12, 0, 3)
+
+[node name="Wall15" parent="Map/Perimeter" index="14" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -12, 0, -3)
+
+[node name="Wall16" parent="Map/Perimeter" index="15" instance=ExtResource("4_7hgai")]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -12, 0, -9)
+
+[node name="Fort1" type="Node3D" parent="Map" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="Block1" parent="Map/Fort1" index="0" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Block2" parent="Map/Fort1" index="1" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="Block3" parent="Map/Fort1" index="2" instance=ExtResource("5_2diow")]
+
+[node name="Block4" parent="Map/Fort1" index="3" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Block5" parent="Map/Fort1" index="4" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Block6" parent="Map/Fort1" index="5" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Ramp1" parent="Map/Fort1" index="6" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0, 3)
+
+[node name="Ramp2" parent="Map/Fort1" index="7" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 3)
+
+[node name="Ramp3" parent="Map/Fort1" index="8" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 1, -1)
+
+[node name="Ramp4" parent="Map/Fort1" index="9" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -3, 1, 1)
+
+[node name="Fort2" type="Node3D" parent="Map" index="3"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3)
+
+[node name="Block1" parent="Map/Fort2" index="0" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Block2" parent="Map/Fort2" index="1" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="Block3" parent="Map/Fort2" index="2" instance=ExtResource("5_2diow")]
+
+[node name="Block4" parent="Map/Fort2" index="3" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Block5" parent="Map/Fort2" index="4" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Block6" parent="Map/Fort2" index="5" instance=ExtResource("5_2diow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Ramp1" parent="Map/Fort2" index="6" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0, 3)
+
+[node name="Ramp2" parent="Map/Fort2" index="7" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, 3)
+
+[node name="Ramp3" parent="Map/Fort2" index="8" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 1, -1)
+
+[node name="Ramp4" parent="Map/Fort2" index="9" instance=ExtResource("6_ucvdf")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -3, 1, 1)
+
+[node name="ExitArea1" parent="Map" index="4" instance=ExtResource("7_5o12b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -10)
+TargetScene = "res://demo/main_menu/main_menu.tscn"
+
+[node name="ExitArea2" parent="Map" index="5" instance=ExtResource("7_5o12b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
+TargetScene = "res://demo/main_menu/main_menu.tscn"
+
+[node name="ExitArea3" parent="Map" index="6" instance=ExtResource("7_5o12b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 10)
+TargetScene = "res://demo/main_menu/main_menu.tscn"
+
+[node name="ExitArea4" parent="Map" index="7" instance=ExtResource("7_5o12b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 10)
+TargetScene = "res://demo/main_menu/main_menu.tscn"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_ay2m3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
+transform = Transform3D(0.866025, -0.482963, 0.12941, 0, 0.258819, 0.965926, -0.5, -0.836516, 0.224144, 0, 4, 0)
+shadow_enabled = true

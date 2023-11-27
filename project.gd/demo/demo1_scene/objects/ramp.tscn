@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkh6kon2qwu4t"]
+
+[ext_resource type="Material" uid="uid://bjvnw1lxswc7b" path="res://demo/materials/bricks_material.tres" id="1_skb6l"]
+
+[node name="Ramp" type="Node3D"]
+
+[node name="Floor" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 4, -2, 4, -3, 0, -1)
+depth = 6.0
+material = ExtResource("1_skb6l")
+
+[node name="Wall1" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 2, 4, 0, 4, -2)
+material = ExtResource("1_skb6l")
+
+[node name="Wall2" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 2, 4, 0, 4, -2)
+material = ExtResource("1_skb6l")

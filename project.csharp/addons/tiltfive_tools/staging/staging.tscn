@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsn1sd86p2h30"]
+
+[ext_resource type="Script" path="res://addons/tiltfive_tools/staging/T5ToolsStaging.cs" id="1_x524t"]
+[ext_resource type="Script" path="res://addons/tiltfive/T5Manager.cs" id="2_1ijo2"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_soj17"]
+custom_aabb = AABB(-5000, -5000, -5000, 10000, 10000, 10000)
+size = Vector2(2, 2)
+
+[sub_resource type="Shader" id="Shader_bwe5k"]
+code = "shader_type spatial;
+render_mode depth_test_disabled, skip_vertex_transform, unshaded, cull_disabled;
+
+uniform float alpha = 0.0;
+
+void vertex() {
+	POSITION = vec4(VERTEX.x, -VERTEX.y, 0.0, 1.0);
+}
+
+void fragment() {
+	ALBEDO = vec3(0.0, 0.0, 0.0);
+	ALPHA = alpha;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rf1gh"]
+render_priority = 99
+shader = SubResource("Shader_bwe5k")
+shader_parameter/alpha = 0.0
+
+[node name="Staging" type="Node3D"]
+script = ExtResource("1_x524t")
+
+[node name="Fade" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_soj17")
+surface_material_override/0 = SubResource("ShaderMaterial_rf1gh")
+
+[node name="T5Manager" type="Node" parent="."]
+script = ExtResource("2_1ijo2")
+
+[node name="Scene" type="Node3D" parent="."]

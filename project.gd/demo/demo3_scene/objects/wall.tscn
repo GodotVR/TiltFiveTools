@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4xl5ssedv1ki"]
+
+[ext_resource type="Material" uid="uid://bjvnw1lxswc7b" path="res://demo/materials/bricks_material.tres" id="1_fdryp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fpna8"]
+size = Vector3(6, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mihws"]
+material = ExtResource("1_fdryp")
+size = Vector3(6, 2, 1)
+
+[node name="Wall" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_fpna8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_mihws")

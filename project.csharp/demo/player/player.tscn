@@ -1,0 +1,41 @@
+[gd_scene load_steps=10 format=3 uid="uid://bvoc83idthch2"]
+
+[ext_resource type="PackedScene" uid="uid://d2gkfypplc1mt" path="res://addons/tiltfive_tools/staging/player.tscn" id="1_lf2qe"]
+[ext_resource type="PackedScene" uid="uid://bfxa4y4qa6l67" path="res://addons/tiltfive_tools/functions/pointer.tscn" id="2_0h2fr"]
+[ext_resource type="PackedScene" uid="uid://b1cd3jc00rhal" path="res://addons/tiltfive/assets/T5GlassesModel.tscn" id="2_plese"]
+[ext_resource type="PackedScene" uid="uid://go1j5dbhtx3l" path="res://addons/tiltfive_tools/functions/board_scale.tscn" id="3_u35xw"]
+[ext_resource type="PackedScene" uid="uid://fipea8dbocg4" path="res://addons/tiltfive/assets/T5WandModel.tscn" id="5_2s3x5"]
+[ext_resource type="PackedScene" uid="uid://5xntpxnp3gxe" path="res://addons/tiltfive_tools/functions/visible_toggle.tscn" id="6_7aoat"]
+[ext_resource type="PackedScene" uid="uid://c21g2ifqcqkij" path="res://addons/tiltfive_tools/functions/face_player.tscn" id="7_bis6y"]
+[ext_resource type="PackedScene" uid="uid://bxarqaa2wmcuf" path="res://demo/player/popup_menu.tscn" id="7_tmcg0"]
+[ext_resource type="PackedScene" uid="uid://0l6uvyibyfq7" path="res://addons/tiltfive_tools/objects/viewport/viewport_2d_in_3d.tscn" id="8_mq4ck"]
+
+[node name="Player" instance=ExtResource("1_lf2qe")]
+VisibleLayers = 5
+PlayerNumber = -1
+
+[node name="Origin" parent="." index="0"]
+gameboard_scale = 10.0
+
+[node name="T5-glasses" parent="Origin/Camera" index="0" instance=ExtResource("2_plese")]
+
+[node name="Pointer" parent="Origin/Wand_1" index="0" instance=ExtResource("2_0h2fr")]
+Length = 10.0
+
+[node name="BoardScale" parent="Origin/Wand_1" index="1" instance=ExtResource("3_u35xw")]
+
+[node name="T5-wand" parent="Origin/Wand_1" index="2" instance=ExtResource("5_2s3x5")]
+
+[node name="Menu" type="Node3D" parent="Origin" index="2"]
+
+[node name="Popup" parent="Origin/Menu" index="0" instance=ExtResource("8_mq4ck")]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.1, 0)
+AlphaScissorThreshold = 0.25
+Unshaded = false
+Filter = null
+ScreenSize = Vector2(0.3, 0.15)
+Scene = ExtResource("7_tmcg0")
+
+[node name="FacePlayer" parent="Origin/Menu" index="1" instance=ExtResource("7_bis6y")]
+
+[node name="VisibleToggle" parent="Origin/Menu" index="2" instance=ExtResource("6_7aoat")]
