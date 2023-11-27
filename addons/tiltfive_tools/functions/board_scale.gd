@@ -24,7 +24,7 @@ var _origin : T5Origin3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Get the origin
-	_origin = T5ToolsPlayer.find_instance(self).get_player_origin()
+	_origin = T5ToolsPlayer.find_instance(self).get_origin()
 
 	# Bind to the parent wand controller inputs
 	var controller = get_parent() as T5Controller3D

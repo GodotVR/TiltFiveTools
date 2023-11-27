@@ -54,8 +54,8 @@ func _ready() -> void:
 		return
 
 	# Connect player events
-	$T5Manager.glasses_scene_was_added.connect(_on_player_scene_added)
-	$T5Manager.glasses_scene_will_be_removed.connect(_on_player_scene_removed)
+	$T5Manager.xr_rig_was_added.connect(_on_xr_rig_was_added)
+	$T5Manager.xr_rig_will_be_removed.connect(_on_xr_rig_will_be_removed)
 
 	# Start by loading the start scene
 	do_load_scene(start_scene, null)
@@ -97,7 +97,7 @@ func do_load_scene(p_scene_path : String, user_data : Variant) -> void:
 		# Zero all player origins. The new scene can choose to relocate
 		# but it's safest to just zero in case
 		for player in players:
-			player.get_player_origin().global_transform = Transform3D.IDENTITY
+			player.get_origin().global_transform = Transform3D.IDENTITY
 
 	# Load the new scene
 	print_verbose("T5ToolsStaging: Loading new scene")
@@ -137,14 +137,24 @@ func _set_fade(p_fade : float) -> void:
 
 
 # Handle player added
-func _on_player_scene_added(player : T5ToolsPlayer):
+func _on_xr_rig_was_added(rig : T5XRRig) -> void:
+	# Ignore if the rig isn't a player
+	var player = rig as T5ToolsPlayer
+	if not player:
+		return
+
 	print_verbose("T5ToolsStaging: Player %s added" % player)
 	players.append(player)
 	player_created.emit(player)
 
 
 # Handle player removed
-func _on_player_scene_removed(player : T5ToolsPlayer):
+func _on_xr_rig_will_be_removed(rig : T5XRRig) -> void:
+	# Ignore if the rig isn't a player
+	var player = rig as T5ToolsPlayer
+	if not player:
+		return
+
 	print_verbose("T5ToolsStaging: Player %s removed" % player)
 	players.erase(player)
 	player_removed.emit(player)

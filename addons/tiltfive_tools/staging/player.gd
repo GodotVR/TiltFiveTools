@@ -22,6 +22,8 @@ static var _players : Array[T5ToolsPlayer] = []
 
 
 func _enter_tree():
+	super()
+
 	# Assign the next free player number
 	for n in 4:
 		if _players.all(func(p : T5ToolsPlayer) -> bool: return p.player_number != n):
@@ -40,26 +42,6 @@ func _exit_tree():
 func _ready():
 	# Update the visibility mask
 	_update_camera_cull_mask()
-
-
-## Get the player viewport
-func get_player_viewport() -> SubViewport:
-	return self
-
-
-## Get the player origin
-func get_player_origin() -> T5Origin3D:
-	return $Origin
-
-
-## Get the player camera
-func get_player_camera() -> T5Camera3D:
-	return $Origin/Camera
-
-
-## Get the player wand
-func get_player_wand(wand_num : int) -> T5Controller3D:
-	return get_node_or_null("Origin/Wand_%d" % (wand_num + 1))
 
 
 ## Get the visible layer mask associated with this player
