@@ -38,8 +38,8 @@ func _ready():
 		return
 
 	# Get the camera and origin
-	_camera = player.get_player_camera()
-	_origin = player.get_player_origin()
+	_camera = player.get_camera()
+	_origin = player.get_origin()
 
 	# Perform the initial facing
 	_target_transform(1.0)

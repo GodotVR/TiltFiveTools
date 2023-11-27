@@ -98,11 +98,11 @@ var _jump : bool
 func _ready() -> void:
 	# Get the player from the character
 	_player = T5ToolsCharacter.find_instance(self).player
-	_origin = _player.get_player_origin()
-	_camera = _player.get_player_camera()
+	_origin = _player.get_origin()
+	_camera = _player.get_camera()
 
 	# Subscribe to player wand events
-	var controller := _player.get_player_wand(0)
+	var controller := _player.get_wand()
 	controller.button_pressed.connect(_on_button_pressed)
 	controller.button_released.connect(_on_button_released)
 	controller.input_vector2_changed.connect(_on_input_vector2_changed)

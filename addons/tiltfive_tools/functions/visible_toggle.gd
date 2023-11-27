@@ -15,9 +15,6 @@ enum Initial {
 }
 
 
-## Wand number (0 for default)
-@export var wand : int = 0
-
 ## Toggle button (T5 menu button for default)
 @export var toggle_button : String = "button_t5"
 
@@ -66,7 +63,7 @@ func _find_wand() -> T5Controller3D:
 		return null
 
 	# Find the wand
-	var wand_node := player.get_player_wand(wand)
+	var wand_node := player.get_wand()
 	if wand_node:
 		return wand_node
 
