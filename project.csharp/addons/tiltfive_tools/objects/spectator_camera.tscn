@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy1vbgijgvfb0"]
+
+[ext_resource type="Script" path="res://addons/tiltfive_tools/objects/T5ToolsSpectatorCamera.cs" id="1_a24vv"]
+
+[node name="SpectatorCamera" type="Camera3D"]
+cull_mask = 3
+script = ExtResource("1_a24vv")

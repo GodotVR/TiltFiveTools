@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c21g2ifqcqkij"]
+
+[ext_resource type="Script" path="res://addons/tiltfive_tools/functions/T5ToolsFacePlayer.cs" id="1_3478g"]
+
+[node name="FacePlayer" type="Node"]
+script = ExtResource("1_3478g")

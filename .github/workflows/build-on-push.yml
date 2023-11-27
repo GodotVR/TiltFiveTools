@@ -16,43 +16,85 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          path: demo/tilt-five-tools
-      - name: Create Tilt Five Tools plugin
+          path: src/tilt-five-tools
+      - name: Assemble Tilt Five Tools Plugin (GD)
         run: |
-          mkdir plugin
-          mkdir plugin/tilt-five-tools
-          mkdir plugin/tilt-five-tools/addons
-          cp -r demo/tilt-five-tools/addons/tiltfive_tools plugin/tilt-five-tools/addons
-          cp demo/tilt-five-tools/LICENSE plugin/tilt-five-tools/addons/tiltfive_tools
-          cp demo/tilt-five-tools/CONTRIBUTORS.md plugin/tilt-five-tools/addons/tiltfive_tools
-          cp demo/tilt-five-tools/VERSIONS.md plugin/tilt-five-tools/addons/tiltfive_tools
-          rm -rf demo/tilt-five-tools/.git
-          rm -rf demo/tilt-five-tools/.github
-      - name: Create Tilt Five Tools library artifact
+          mkdir plugin-gd
+          mkdir plugin-gd/tilt-five-tools
+          mkdir plugin-gd/tilt-five-tools/addons
+          cp -r src/tilt-five-tools/project.gd/addons/tiltfive_tools plugin-gd/tilt-five-tools/addons
+          cp src/tilt-five-tools/LICENSE plugin-gd/tilt-five-tools/addons/tiltfive_tools
+          cp src/tilt-five-tools/CONTRIBUTORS.md plugin-gd/tilt-five-tools/addons/tiltfive_tools
+          cp src/tilt-five-tools/VERSIONS.md plugin-gd/tilt-five-tools/addons/tiltfive_tools
+      - name: Assemble Tilt Five Tools Demo (GD)
+        run: |
+          mkdir demo-gd
+          mkdir demo-gd/tilt-five-tools-demo
+          cp -r src/tilt-five-tools/project.gd/. demo-gd/tilt-five-tools-demo
+          cp src/tilt-five-tools/LICENSE demo-gd/tilt-five-tools-demo
+          cp src/tilt-five-tools/CONTRIBUTORS.md demo-gd/tilt-five-tools-demo
+          cp src/tilt-five-tools/VERSIONS.md demo-gd/tilt-five-tools-demo
+      - name: Assemble Tilt Five Tools Plugin (C#)
+        run: |
+          mkdir plugin-csharp
+          mkdir plugin-csharp/tilt-five-tools
+          mkdir plugin-csharp/tilt-five-tools/addons
+          cp -r src/tilt-five-tools/project.csharp/addons/tiltfive_tools plugin-csharp/tilt-five-tools/addons
+          cp src/tilt-five-tools/LICENSE plugin-csharp/tilt-five-tools/addons/tiltfive_tools
+          cp src/tilt-five-tools/CONTRIBUTORS.md plugin-csharp/tilt-five-tools/addons/tiltfive_tools
+          cp src/tilt-five-tools/VERSIONS.md plugin-csharp/tilt-five-tools/addons/tiltfive_tools
+      - name: Assemble Tilt Five Tools Demo (C#)
+        run: |
+          mkdir demo-csharp
+          mkdir demo-csharp/tilt-five-tools-demo
+          cp -r src/tilt-five-tools/project.csharp/. demo-csharp/tilt-five-tools-demo
+          cp src/tilt-five-tools/LICENSE demo-csharp/tilt-five-tools-demo
+          cp src/tilt-five-tools/CONTRIBUTORS.md demo-csharp/tilt-five-tools-demo
+          cp src/tilt-five-tools/VERSIONS.md demo-csharp/tilt-five-tools-demo
+      - name: Create Tilt Five Tools library artifact (GD)
         uses: actions/upload-artifact@v3
         with:
-          name: tilt-five-tools
+          name: tilt-five-tools-gd
           path: |
-            plugin
-      - name: Create Tilt Five Tools demo artifact
+            plugin-gd
+      - name: Create Tilt Five Tools demo artifact (GD)
         uses: actions/upload-artifact@v3
         with:
-          name: tilt-five-tools-demo
+          name: tilt-five-tools-demo-gd
           path: |
-            demo
+            demo-gd
+      - name: Create Tilt Five Tools library artifact (C#)
+        uses: actions/upload-artifact@v3
+        with:
+          name: tilt-five-tools-csharp
+          path: |
+            plugin-csharp
+      - name: Create Tilt Five Tools demo artifact (C#)
+        uses: actions/upload-artifact@v3
+        with:
+          name: tilt-five-tools-demo-csharp
+          path: |
+            demo-csharp
       - name: Zip asset
         run: |
-          cd plugin
-          zip -qq -r ../tilt-five-tools.zip tilt-five-tools
-          cd ../demo
-          zip -qq -r ../tilt-five-tools-demo.zip tilt-five-tools
+          cd plugin-gd
+          zip -qq -r ../tilt-five-tools-gd.zip tilt-five-tools
+          cd ..
+          cd demo-gd
+          zip -qq -r ../tilt-five-tools-demo-gd.zip tilt-five-tools-demo
+          cd ..
+          cd plugin-csharp
+          zip -qq -r ../tilt-five-tools-csharp.zip tilt-five-tools
+          cd ..
+          cd demo-csharp
+          zip -qq -r ../tilt-five-tools-demo-csharp.zip tilt-five-tools-demo
           cd ..
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       - name: Create and upload asset
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "tilt-five-tools.zip,tilt-five-tools-demo.zip"
+          artifacts: "tilt-five-tools-gd.zip,tilt-five-tools-demo-gd.zip,tilt-five-tools-csharp.zip,tilt-five-tools-demo-csharp.zip"
           omitNameDuringUpdate: true
           omitBodyDuringUpdate: true
           token: ${{ secrets.GITHUB_TOKEN }}

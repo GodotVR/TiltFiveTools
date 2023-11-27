@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bs8yge8ufwxlg"]
+
+[ext_resource type="Script" path="res://demo/demo2_scene/objects/Demo2Ground.cs" id="1_22u36"]
+[ext_resource type="Material" uid="uid://nbp8gi62cwuj" path="res://demo/materials/ground_material.tres" id="1_eguip"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_bno31"]
+material = ExtResource("1_eguip")
+size = Vector2(6, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vfiqj"]
+size = Vector3(6, 1, 6)
+
+[node name="Ground" type="StaticBody3D"]
+collision_layer = 1048577
+script = ExtResource("1_22u36")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_bno31")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_vfiqj")

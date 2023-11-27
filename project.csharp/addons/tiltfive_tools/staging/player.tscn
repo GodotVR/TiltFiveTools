@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2gkfypplc1mt"]
+
+[ext_resource type="PackedScene" uid="uid://dpbt52d0p5wjw" path="res://addons/tiltfive/scenes/T5XRRig.tscn" id="1_h6rdt"]
+[ext_resource type="Script" path="res://addons/tiltfive_tools/staging/T5ToolsPlayer.cs" id="2_woxci"]
+
+[node name="Player" instance=ExtResource("1_h6rdt")]
+script = ExtResource("2_woxci")
+
+[node name="Camera" parent="Origin" index="0"]
+far = 50.0

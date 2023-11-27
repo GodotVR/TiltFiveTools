@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://x64qu8beayva"]
+
+[ext_resource type="PackedScene" uid="uid://7tcfuro5b3kx" path="res://addons/tiltfive_tools/objects/scene_switch_area.tscn" id="1_8h4qn"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_tmsag"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldp3t"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 1, 0.247059)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uoo53"]
+material = SubResource("StandardMaterial3D_ldp3t")
+top_radius = 1.0
+bottom_radius = 1.0
+radial_segments = 32
+rings = 1
+cap_bottom = false
+
+[node name="ExitArea" instance=ExtResource("1_8h4qn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_tmsag")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_uoo53")

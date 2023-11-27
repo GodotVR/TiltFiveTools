@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://cm6fdya8glspr"]
+
+[ext_resource type="PackedScene" uid="uid://co3lxjgp5ifh2" path="res://addons/tiltfive_tools/staging/character.tscn" id="1_cvjwm"]
+[ext_resource type="Script" path="res://demo/demo1_scene/Demo1CharacterBody.cs" id="2_akva3"]
+[ext_resource type="Material" uid="uid://dgutg2a2y5i1u" path="res://demo/materials/rock_triplanar.tres" id="3_taor7"]
+[ext_resource type="AudioStream" uid="uid://b4vru7iyf8k8j" path="res://demo/sounds/hit.wav" id="4_b4if0"]
+[ext_resource type="AudioStream" uid="uid://saisv7mndt3c" path="res://demo/sounds/rolling.wav" id="4_s823o"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tmo6w"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_61l81"]
+material = ExtResource("3_taor7")
+
+[node name="Character" instance=ExtResource("1_cvjwm")]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." index="0" groups=["character"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 524288
+collision_mask = 524543
+max_contacts_reported = 4
+contact_monitor = true
+script = ExtResource("2_akva3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" index="0"]
+shape = SubResource("SphereShape3D_tmo6w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" index="1"]
+mesh = SubResource("SphereMesh_61l81")
+
+[node name="HitPlayer" type="AudioStreamPlayer3D" parent="RigidBody3D" index="2"]
+stream = ExtResource("4_b4if0")
+pitch_scale = 0.5
+
+[node name="RollingPlayer" type="AudioStreamPlayer3D" parent="RigidBody3D" index="3"]
+stream = ExtResource("4_s823o")
+autoplay = true
