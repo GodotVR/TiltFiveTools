@@ -52,11 +52,19 @@ func _process(delta : float) -> void:
 
 # Update the target transform
 func _target_transform(weight : float) -> void:
+	# Skip if the camera is not actively tracked
+	if not _camera.get_is_active():
+		return
+
+	# Get the vector from the target to the camera
+	var dir_local := _target.to_local(_camera.global_position)
+	if dir_local.is_zero_approx():
+		return
+
 	# Get the old basis
 	var b_old := _target.transform.basis.orthonormalized()
 
 	# Construct the new basis looking at the camera
-	var dir_local := _target.to_local(_camera.global_position)
 	var b_new := b_old.looking_at(dir_local, Vector3.UP, true)
 
 	# If tilt is not permitted then snap the Y to vertical
