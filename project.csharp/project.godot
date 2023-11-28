@@ -29,7 +29,7 @@ project/assembly_name="TiltFiveTools"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/tiltfive/plugin.cfg")
+enabled=PackedStringArray("res://addons/tiltfive/plugin.cfg", "res://addons/tiltfive_tools/plugin.cfg")
 
 [layer_names]
 
