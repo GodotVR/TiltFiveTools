@@ -348,7 +348,7 @@ public partial class T5ToolsViewport2Din3D : Node3D
         body.PointerEvent += OnPointerEvent;
 
         // Update enabled based on visibility
-        VisibilityChanged += UpdateEnabled;
+        VisibilityChanged += OnVisibilityChanged;
 
         // Apply physics properties
         UpdateScreenSize();
@@ -492,6 +492,19 @@ public partial class T5ToolsViewport2Din3D : Node3D
             // This is no longer needed
             SetProcess(false);
         }
+    }
+
+    /// <summary>
+    /// Handle visibility changed
+    /// </summary>
+    private void OnVisibilityChanged()
+    {
+        // Update enabled state
+        UpdateEnabled();
+
+        // Fire visibility changed in scene
+        _sceneNode?.PropagateNotification(
+            (int)CanvasItem.NotificationVisibilityChanged);
     }
 
     /// <summary>
