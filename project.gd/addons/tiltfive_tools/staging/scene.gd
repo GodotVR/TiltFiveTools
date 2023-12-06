@@ -98,7 +98,7 @@ func _on_player_created(player : T5ToolsPlayer) -> void:
 	var offset := Vector3.FORWARD * spawn_padding
 	offset = offset.rotated(Vector3.UP, randf_range(0.0, PI * 2))
 	location.origin += offset
-	
+
 	# Create a new character at the location
 	_create_character(player, location)
 
